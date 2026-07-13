@@ -12,7 +12,7 @@ import pdf_extractor
 import llm_analyser
 import html_reporter
 import csv_reporter
-
+print("MAIN.PY LOADED")
 console = Console()
 
 
@@ -22,10 +22,11 @@ def build_parser():
     )
 
     parser.add_argument(
-        "--company",
-        required=True,
-        help="Company name, NSE symbol or BSE code"
+    "--company",
+    help="Company name, NSE symbol or BSE code"
     )
+
+    
 
     parser.add_argument(
         "--manual",
@@ -121,6 +122,24 @@ def main():
     parser = build_parser()
     args = parser.parse_args()
 
+    if not args.company:
+
+        company_name = input(
+            "Enter Company Name: "
+        ).strip()
+
+        if not company_name:
+            console.print(
+                "[red]Company name cannot be empty.[/red]"
+            )
+            sys.exit(1)
+
+        args.company = company_name.upper()
+
+    else:
+
+        args.company = args.company.strip().upper()
+
     try:
 
         transcripts = load_transcripts(args)
@@ -175,7 +194,6 @@ def main():
             f"[bold red]Error:[/bold red] {e}"
         )
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()
