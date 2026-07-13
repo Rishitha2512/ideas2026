@@ -9,7 +9,7 @@ from config import OUTPUT_FOLDER, MAX_QUARTERS
 
 import fetcher
 import pdf_extractor
-import llm_analyser
+import nlp_analyser
 import html_reporter
 import csv_reporter
 print("MAIN.PY LOADED")
@@ -166,7 +166,7 @@ def main():
             )
 
             analysis_result = (
-                llm_analyser.run_full_analysis(
+                nlp_analyser.run_full_analysis(
                     transcripts=transcripts,
                     company_name=args.company,
                     verbose=args.verbose,
